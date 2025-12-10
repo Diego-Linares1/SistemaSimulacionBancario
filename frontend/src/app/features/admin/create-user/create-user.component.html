@@ -1,0 +1,82 @@
+<div class="create-user-container">
+    <div class="create-user-box">
+        <h2>Crear Nuevo Usuario</h2>
+
+        <!-- Mensaje de éxito -->
+        <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+        </div>
+
+        <!-- Mensaje de error -->
+        <div *ngIf="errorMessage" class="alert alert-error">
+            {{ errorMessage }}
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="user-form">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input
+                    id="nombre"
+                    type="text"
+                    formControlName="nombre"
+                    placeholder="Nombre del usuario"
+                    class="form-input"
+                />
+                <span *ngIf="form.get('nombre')?.hasError('required') && form.get('nombre')?.touched" class="error-text">
+                    El nombre es requerido
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <input
+                    id="username"
+                    type="text"
+                    formControlName="username"
+                    placeholder="nombre_usuario"
+                    class="form-input"
+                />
+                <span *ngIf="form.get('username')?.hasError('required') && form.get('username')?.touched" class="error-text">
+                    El usuario es requerido
+                </span>
+                <span *ngIf="form.get('username')?.hasError('minlength') && form.get('username')?.touched" class="error-text">
+                    Mínimo 3 caracteres
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input
+                    id="password"
+                    type="password"
+                    formControlName="password"
+                    placeholder="Mínimo 6 caracteres"
+                    class="form-input"
+                />
+                <span *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched" class="error-text">
+                    La contraseña es requerida
+                </span>
+                <span *ngIf="form.get('password')?.hasError('minlength') && form.get('password')?.touched" class="error-text">
+                    Mínimo 6 caracteres
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Rol del Usuario</label>
+                <select id="role" formControlName="role" class="form-input">
+                    <option value="cliente">Cliente</option>
+                    <option value="analista">Analista</option>
+                    <option value="admin">Administrador</option>
+                </select>
+            </div>
+
+            <button
+                type="submit"
+                [disabled]="form.invalid || loading"
+                class="btn-submit"
+            >
+                {{ loading ? 'Creando...' : 'Crear Usuario' }}
+            </button>
+        </form>
+    </div>
+</div>

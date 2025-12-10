@@ -1,0 +1,102 @@
+<div class="login-container">
+    <div class="login-box">
+        <!-- Columna Izquierda: Formulario -->
+        <div class="login-left">
+            <div class="login-header">
+                <h1>Iniciar Sesión</h1>
+                <p>Bienvenido a MiBanco</p>
+            </div>
+
+            <!-- Mensaje de error -->
+            <div *ngIf="errorMessage" class="alert alert-error">
+                {{ errorMessage }}
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+                <!-- Username -->
+                <div class="form-group">
+                    <label for="username">Usuario</label>
+                    <input
+                        id="username"
+                        type="text"
+                        formControlName="username"
+                        placeholder="nombre_usuario"
+                        class="form-input"
+                    />
+                    <span *ngIf="form.get('username')?.hasError('required') && form.get('username')?.touched" class="error-text">
+                        El usuario es requerido
+                    </span>
+                    <span *ngIf="form.get('username')?.hasError('minlength') && form.get('username')?.touched" class="error-text">
+                        Mínimo 3 caracteres
+                    </span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input
+                        id="password"
+                        type="password"
+                        formControlName="password"
+                        placeholder="Mínimo 6 caracteres"
+                        class="form-input"
+                    />
+                    <span *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched" class="error-text">
+                        La contraseña es requerida
+                    </span>
+                    <span *ngIf="form.get('password')?.hasError('minlength') && form.get('password')?.touched" class="error-text">
+                        Mínimo 6 caracteres
+                    </span>
+                </div>
+
+                <!-- Botón de submit -->
+                <button
+                    type="submit"
+                    [disabled]="form.invalid || loading"
+                    class="btn-submit"
+                >
+                    {{ loading ? 'Procesando...' : 'Iniciar Sesión' }}
+                </button>
+            </form>
+        </div>
+
+        <!-- Columna Derecha: Credenciales -->
+        <div class="login-right">
+            <h3>Credenciales de Prueba</h3>
+            
+            <div class="credential-card">
+                <div class="credential-header admin">
+                    <span class="role-badge">👑 Administrador</span>
+                </div>
+                <div class="credential-body">
+                    <p><strong>Usuario:</strong> admin</p>
+                    <p><strong>Contraseña:</strong> admin123</p>
+                    <p class="role-description">Puede crear usuarios y ver logs</p>
+                </div>
+            </div>
+
+            <div class="credential-card">
+                <div class="credential-header analyst">
+                    <span class="role-badge">📊 Analista</span>
+                </div>
+                <div class="credential-body">
+                    <p><strong>Usuario:</strong> analista</p>
+                    <p><strong>Contraseña:</strong> analista123</p>
+                    <p class="role-description">Puede ver y aprobar/rechazar solicitudes</p>
+                </div>
+            </div>
+
+            <div class="credential-card">
+                <div class="credential-header client">
+                    <span class="role-badge">👤 Cliente</span>
+                </div>
+                <div class="credential-body">
+                    <p><strong>Usuario:</strong> cliente</p>
+                    <p><strong>Contraseña:</strong> cliente123</p>
+                    <p class="role-description">Puede solicitar préstamos y ver su historial</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

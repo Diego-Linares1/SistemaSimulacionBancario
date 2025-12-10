@@ -1,0 +1,22 @@
+<div class="admin-container">
+    <h1>Panel de Administración</h1>
+    <p class="subtitle">Gestiona el sistema MiBanco</p>
+
+    <div class="admin-grid">
+        <!-- Card: Crear Usuarios -->
+        <div class="admin-card" (click)="navigateToCreateUser()">
+            <div class="card-icon">👥</div>
+            <h3>Crear Usuarios</h3>
+            <p>Administra y crea nuevos usuarios del sistema (clientes, analistas)</p>
+            <button class="card-btn">Ir a Crear Usuario →</button>
+        </div>
+
+        <!-- Card: Ver Logs -->
+        <div class="admin-card" (click)="navigateToLogs()">
+            <div class="card-icon">📋</div>
+            <h3>Ver Logs</h3>
+            <p>Revisa el historial de actividades y eventos del sistema</p>
+            <button class="card-btn">Ver Logs →</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="history-container">
+    <div class="history-header">
+        <h2>Mis Solicitudes de Préstamo</h2>
+        <button (click)="navigateToNewRequest()" class="btn-new-request">
+            ➕ Nueva Solicitud
+        </button>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading()" class="loading">
+        Cargando tus solicitudes...
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error()" class="error">
+        {{ error() }}
+    </div>
+
+    <!-- Sin solicitudes -->
+    <div *ngIf="!loading() && !error() && loans().length === 0" class="empty-state">
+        <p>No tienes solicitudes de préstamo aún</p>
+        <button (click)="navigateToNewRequest()" class="btn-primary">
+            Solicitar mi primer préstamo
+        </button>
+    </div>
+
+    <!-- Tabla de solicitudes -->
+    <div *ngIf="!loading() && !error() && loans().length > 0" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Solicitante</th>
+                    <th>Monto</th>
+                    <th>Plazo</th>
+                    <th>Categoría</th>
+                    <th>Score</th>
+                    <th>Saldo Final</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let loan of loans()">
+                    <td>{{ loan.id }}</td>
+                    <td>{{ loan.nombre }} {{ loan.apellido }}</td>
+                    <td>{{ loan.monto | currency:'USD':'symbol':'1.2-2' }}</td>
+                    <td>{{ loan.plazo }} meses</td>
+                    <td>
+                        <span class="category-badge category-{{ loan.categoria_credito }}">
+                            {{ loan.categoria_credito }}
+                        </span>
+                    </td>
+                    <td>{{ loan.score_credito }}</td>
+                    <td>{{ loan.saldo_final | currency:'USD':'symbol':'1.2-2' }}</td>
+                    <td>
+                        <span [class]="'badge badge-' + (loan.estado === 'APROBADA' ? 'success' : loan.estado === 'RECHAZADA' ? 'danger' : 'warning')">
+                            {{ loan.estado }}
+                        </span>
+                    </td>
+                    <td>{{ loan.created_at | date:'short' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

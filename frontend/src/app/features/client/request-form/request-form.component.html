@@ -1,0 +1,66 @@
+<div class="loan-container">
+    <div class="container-global">
+        <!-- Botón de retroceso -->
+        <button class="back-btn" (click)="goBack()" type="button">
+            ← Volver
+        </button>
+
+        <div class="welcome">
+            <h1>Bienvenido {{ form.get('nombre')?.value || 'Cliente' }}</h1>
+            <h2>Solicitud de Préstamo</h2>
+        </div>
+
+        <!-- Mensajes de estado -->
+        <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-error">
+            {{ errorMessage }}
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="loan-form">
+
+            <div class="form-grid">
+
+                <div class="left-section">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input formControlName="nombre" placeholder="Ingrese su nombre" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Apellido</label>
+                        <input formControlName="apellido" placeholder="Ingrese su apellido" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>DNI</label>
+                        <input formControlName="dni" placeholder="DNI" />
+                    </div>
+                </div>
+
+                <div class="right-section">
+                    <div class="form-group">
+                        <label>Ingreso Mensual</label>
+                        <input formControlName="ingreso" type="number" placeholder="Ingreso mensual" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Monto a Solicitar</label>
+                        <input formControlName="monto" type="number" placeholder="Monto a solicitar" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Plazo (meses)</label>
+                        <input formControlName="plazo" type="number" placeholder="Plazo (meses)" />
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="submit-btn" type="submit" [disabled]="form.invalid || loading">
+                {{ loading ? 'Enviando...' : 'Solicitar' }}
+            </button>
+        </form>
+    </div>
+
+</div>

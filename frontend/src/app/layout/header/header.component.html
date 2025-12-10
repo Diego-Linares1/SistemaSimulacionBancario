@@ -1,0 +1,27 @@
+<header class="navbar" *ngIf="user$ | async as user">
+    <div class="logo">
+        <span>🏦 MiBanco</span>
+    </div>
+
+    <nav class="nav-links">
+        <!-- Cliente -->
+        <a *ngIf="user.role === 'cliente'" routerLink="/solicitar" routerLinkActive="active">
+            Solicitar Préstamo
+        </a>
+        
+        <!-- Analista -->
+        <a *ngIf="user.role === 'analista'" routerLink="/analista" routerLinkActive="active">
+            Solicitudes Pendientes
+        </a>
+        
+        <!-- Admin -->
+        <a *ngIf="user.role === 'admin'" routerLink="/admin" routerLinkActive="active">
+            Panel de Admin
+        </a>
+    </nav>
+
+    <div class="user-menu">
+        <span class="user-info">{{ user.email }} ({{ user.role }})</span>
+        <button (click)="logout()" class="logout-btn">Cerrar Sesión</button>
+    </div>
+</header>

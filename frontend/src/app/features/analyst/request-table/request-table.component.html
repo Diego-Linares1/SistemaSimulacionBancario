@@ -1,0 +1,57 @@
+<div class="request-table-container">
+
+    <!-- Loading -->
+    <div *ngIf="loading()" class="loading">
+        Cargando solicitudes...
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error()" class="error">
+        {{ error() }}
+    </div>
+
+    <!-- Tabla -->
+    <table *ngIf="!loading() && !error()">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Monto</th>
+                <th>Ingreso</th>
+                <th>Plazo</th>
+                <th>Categoría</th>
+                <th>Score</th>
+                <th>Saldo Final</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let loan of loans()">
+                <td>{{ loan.id }}</td>
+                <td>{{ loan.nombre }} {{ loan.apellido }}</td>
+                <td>{{ loan.monto | currency:'USD':'symbol':'1.2-2' }}</td>
+                <td>{{ loan.ingreso | currency:'USD':'symbol':'1.2-2' }}</td>
+                <td>{{ loan.plazo }} meses</td>
+                <td>
+                    <span class="category-badge category-{{ loan.categoria_credito }}">
+                        {{ loan.categoria_credito }}
+                    </span>
+                </td>
+                <td>{{ loan.score_credito }}</td>
+                <td>{{ loan.saldo_final | currency:'USD':'symbol':'1.2-2' }}</td>
+                <td [class]="'badge badge-' + (loan.estado === 'APROBADA' ? 'success' : loan.estado === 'RECHAZADA' ? 'danger' : 'warning')">
+                    {{ loan.estado }}
+                </td>
+                <td>{{ loan.created_at | date:'short' }}</td>
+
+                <td>
+                    <button class="approve-btn" (click)="approve(loan.id)" [disabled]="loan.estado !== 'PENDIENTE'">Aprobar</button>
+                    <button class="reject-btn" (click)="reject(loan.id)" [disabled]="loan.estado !== 'PENDIENTE'">Rechazar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

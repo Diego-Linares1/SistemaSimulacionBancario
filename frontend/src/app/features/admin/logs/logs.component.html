@@ -1,0 +1,42 @@
+<div class="logs-container">
+    <h2>Logs del Sistema</h2>
+    <p class="subtitle">Historial de actividades y eventos</p>
+
+    <!-- Loading -->
+    <div *ngIf="loading()" class="loading">
+        Cargando logs...
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error()" class="error">
+        {{ error() }}
+    </div>
+
+    <!-- Tabla de logs -->
+    <div *ngIf="!loading() && !error()" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Acción</th>
+                    <th>Usuario</th>
+                    <th>Fecha y Hora</th>
+                    <th>Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of logs()">
+                    <td>{{ log.id }}</td>
+                    <td>
+                        <span class="action-badge" [class]="'action-' + log.action.toLowerCase()">
+                            {{ log.action }}
+                        </span>
+                    </td>
+                    <td>{{ log.user }}</td>
+                    <td>{{ log.timestamp | date:'medium' }}</td>
+                    <td>{{ log.details }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
