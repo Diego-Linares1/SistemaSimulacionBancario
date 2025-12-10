@@ -4,13 +4,12 @@
 
 Se ha agregado un sistema completo de autenticación con:
 
-### 1. **Servicio de Autenticación** (`auth.service.ts`)
+### 1. **Servicio de Autenticación** (`auth.service.ts`) 
 - ✅ Login con email y contraseña
 - ✅ Registro de nuevos usuarios
 - ✅ Logout
 - ✅ Gestión de tokens JWT
 - ✅ Almacenamiento en localStorage
-- ✅ Observables para estado reactivo
 
 ### 2. **Guards de Rutas** (`auth.guard.ts`)
 - ✅ `authGuard`: Protege rutas autenticadas
